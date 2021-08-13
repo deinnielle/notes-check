@@ -13,7 +13,7 @@ function onMIDIFailure() {
 }
 
 function onMIDISuccess(midiAccess) {
-  for (var input of midiAccess.inputs.values()) {
+  for (let input of midiAccess.inputs.values()) {
     input.onmidimessage = getMIDIMessage;
   }
 }
@@ -34,22 +34,17 @@ const notes = [
 
 function getNotes(notes) {
   const randomValue = Math.floor(Math.random() * 2) + 1;
-  const shuffledNotes = shuffle(notes);
-  console.log("", shuffledNotes);
-  return shuffledNotes.splice(0, 3);
+  return [...shuffle(notes)].splice(0, randomValue);
 }
 
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
@@ -61,7 +56,6 @@ function shuffle(array) {
 
 function checkNotes(notes, input) {
   for (const note of notes) {
-    // const result = input.find((i) => i === note.note);
     if (input.find((i) => i === note.note) === undefined) {
       return false;
     }
@@ -74,13 +68,12 @@ function getMIDIMessage(midiMessage) {
   if (midiMessage.data[2] > 1) {
     input.push(midiMessage.data[1]);
   }
+
   if (currentNotes.length === 0) {
     currentNotes = getNotes(notes);
   }
-  console.log("currentNotes", currentNotes);
+
   if (checkNotes(currentNotes, input) === true) {
-    //   console.log("getNotes", getNotes(notes));
-    input = [];
     currentNotes = [];
     console.log("new notes");
   }
