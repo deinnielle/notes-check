@@ -1,15 +1,18 @@
 body {
   font-family: sans-serif;
-}
-
-.main {
-  padding: 10px;
+  font-size: 20px;
 }
 
 hr {
+  margin: 20px 0px 0px 0px;
   width: 50%;
   height: 2px;
   background: black;
+}
+
+.half-line {
+  margin: 20px 0px 0px 0px;
+  width: 10%;
 }
 
 .note {
