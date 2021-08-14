@@ -11,7 +11,10 @@ function onMIDISuccess(midiAccess) {
 }
 
 function checkIfBlackKey(note) {
-  const blackKeys = [48, 51, 54, 56, 58, 61, 63, 66, 68, 70, 73, 75, 78];
+  const blackKeys = [
+    37, 39, 42, 44, 46, 49, 51, 54, 56, 58, 61, 63, 66, 68, 70, 73, 75, 78, 80,
+    82,
+  ];
   if (blackKeys.includes(note)) {
     return true;
   } else {
@@ -34,9 +37,9 @@ const notes = [
   { note: 45, position: 267, letter: "A" },
   { note: 46, position: 267, letter: "A#, Bb" },
   { note: 47, position: 255, letter: "B" },
-  { note: 47, position: 243, letter: "C" },
-  { note: 48, position: 243, letter: "C#, Db" },
-  { note: 49, position: 231, letter: "D" },
+  { note: 48, position: 243, letter: "C" },
+  { note: 49, position: 243, letter: "C#, Db" },
+  { note: 50, position: 231, letter: "D" },
   { note: 51, position: 231, letter: "D#, Eb" },
   { note: 52, position: 219, letter: "E" },
   { note: 53, position: 207, letter: "F" },
