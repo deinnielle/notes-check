@@ -152,22 +152,18 @@ function checkNotes(notes, input) {
 
 function paintNote(note) {
   if (checkIfBlackKey(note.note)) {
-    const accidentals = ["bO", "#O"];
+    const p = document.createElement("p");
     let position = note.position;
-    let randomValue = Math.random();
-    if (randomValue >= 0.5) {
-      randomValue = 1;
+    if (Math.random() >= 0.5) {
+      p.innerHTML = "#O";
+      p.style.left = "45px";
     } else {
-      randomValue = 0;
-    }
-    if (randomValue === 0) {
+      p.innerHTML = "bO";
+      p.style.left = "85px";
       position -= 12;
     }
-    const p = document.createElement("p");
-    p.innerHTML = accidentals[randomValue];
     p.style.zIndex = 2;
     p.style.position = "fixed";
-    p.style.left = "45px";
     p.style.top = `${position}px`;
     document.body.appendChild(p);
   } else {
@@ -201,6 +197,7 @@ function start() {
   currentNotes = [];
   document.querySelectorAll("p").forEach((e) => e.parentNode.removeChild(e));
   currentNotes = getNotes(filterNotes());
+  console.log("currentNotes", currentNotes);
   for (const note of currentNotes) {
     paintNote(note);
   }

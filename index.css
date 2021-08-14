@@ -5,14 +5,14 @@ body {
 
 hr {
   margin: 20px 0px 0px 0px;
-  width: 20%;
+  width: 400px;
   height: 2px;
   background: black;
 }
 
 .half-line {
   margin: 20px 0px 0px 0px;
-  width: 5%;
+  width: 200px;
 }
 
 .note {
