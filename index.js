@@ -2,6 +2,7 @@ const treble = document.querySelector("#treble");
 const trebleAccidentals = document.querySelector("#treble-accidentals");
 const bass = document.querySelector("#bass");
 const bassAccidentals = document.querySelector("#bass-accidentals");
+const number = document.querySelector("#number");
 
 navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
@@ -79,8 +80,8 @@ const notes = [
   { note: 84, position: -9, letter: "C" },
 ];
 
-function getNotes(notes) {
-  const randomValue = Math.floor(Math.random() * 2) + 2;
+function getNotes(notes, number) {
+  const randomValue = Math.floor(Math.random() * number) + 1;
   return [...shuffle(notes)].splice(0, randomValue);
 }
 
@@ -196,7 +197,7 @@ function start() {
   input = [];
   currentNotes = [];
   document.querySelectorAll("p").forEach((e) => e.parentNode.removeChild(e));
-  currentNotes = getNotes(filterNotes());
+  currentNotes = getNotes(filterNotes(), number.value);
   console.log("currentNotes", currentNotes);
   for (const note of currentNotes) {
     paintNote(note);
@@ -209,3 +210,4 @@ treble.addEventListener("change", start);
 trebleAccidentals.addEventListener("change", start);
 bass.addEventListener("change", start);
 bassAccidentals.addEventListener("change", start);
+number.addEventListener("change", start);
