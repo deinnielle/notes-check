@@ -175,7 +175,7 @@ function midiFail() {
 }
 
 function midiSuccess(midi) {
-  for (let input of midi.inputs.values()) {
+  for (const input of midi.inputs.values()) {
     input.onmidimessage = getMIDIMessage;
   }
 }
