@@ -56,7 +56,7 @@ const notes = [
   { note: 83, position: 3, letter: "B" },
   { note: 84, position: -9, letter: "C" },
 ];
-let midiInputs = [];
+let inputs = [];
 let currentNotes = [];
 
 function blackKey(note) {
@@ -191,16 +191,16 @@ function midiSuccess(midi) {
 
 function getMIDIMessage(input) {
   if (input.data[2] > 1) {
-    midiInputs.push(input.data[1]);
+    inputs.push(input.data[1]);
   }
 
-  if (checkNotes(currentNotes, input)) {
+  if (checkNotes(currentNotes, inputs)) {
     start();
   }
 }
 
 function start() {
-  midiInputs = [];
+  inputs = [];
   currentNotes = [];
   document.querySelectorAll("p").forEach((e) => e.parentNode.removeChild(e));
   currentNotes = getNotes(filterNotes(), number.value);
