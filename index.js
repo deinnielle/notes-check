@@ -4,30 +4,6 @@ const bass = document.querySelector("#bass");
 const bassAccidentals = document.querySelector("#bass-accidentals");
 const number = document.querySelector("#number");
 
-navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-
-function onMIDIFailure() {
-  console.log("Could not access your MIDI devices.");
-}
-
-function onMIDISuccess(midiAccess) {
-  for (let input of midiAccess.inputs.values()) {
-    input.onmidimessage = getMIDIMessage;
-  }
-}
-
-function checkIfBlackKey(note) {
-  const blackKeys = [
-    37, 39, 42, 44, 46, 49, 51, 54, 56, 58, 61, 63, 66, 68, 70, 73, 75, 78, 80,
-    82,
-  ];
-  if (blackKeys.includes(note)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 const notes = [
   { note: 36, position: 327, letter: "C" },
   { note: 37, position: 327, letter: "C#, Db" },
@@ -79,6 +55,20 @@ const notes = [
   { note: 83, position: 3, letter: "B" },
   { note: 84, position: -9, letter: "C" },
 ];
+let midiInputs = [];
+let currentNotes = [];
+
+function checkIfBlackKey(note) {
+  const blackKeys = [
+    37, 39, 42, 44, 46, 49, 51, 54, 56, 58, 61, 63, 66, 68, 70, 73, 75, 78, 80,
+    82,
+  ];
+  if (blackKeys.includes(note)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function getNotes(notes, number) {
   const randomValue = Math.floor(Math.random() * number) + 1;
@@ -178,27 +168,33 @@ function paintNote(note) {
   }
 }
 
-let input = [];
-let currentNotes = [];
-function getMIDIMessage(midiMessage) {
-  if (midiMessage.data[2] > 1) {
-    input.push(midiMessage.data[1]);
+navigator.requestMIDIAccess().then(midiSuccess, midiFail);
+
+function midiFail() {
+  console.log("Could not access your MIDI device");
+}
+
+function midiSuccess(midi) {
+  for (let input of midi.inputs.values()) {
+    input.onmidimessage = getMIDIMessage;
   }
-  console.log("currentNotes", currentNotes);
-  console.log("midi", midiMessage.data[1]);
+}
+
+function getMIDIMessage(input) {
+  if (input.data[2] > 1) {
+    midiInputs.push(input.data[1]);
+  }
 
   if (checkNotes(currentNotes, input)) {
-    console.log("new");
     start();
   }
 }
 
 function start() {
-  input = [];
+  midiInputs = [];
   currentNotes = [];
   document.querySelectorAll("p").forEach((e) => e.parentNode.removeChild(e));
   currentNotes = getNotes(filterNotes(), number.value);
-  console.log("currentNotes", currentNotes);
   for (const note of currentNotes) {
     paintNote(note);
   }
