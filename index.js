@@ -72,8 +72,7 @@ function blackKey(note) {
 }
 
 function getNotes(notes, number) {
-  const randomValue = Math.floor(Math.random() * number) + 1;
-  return [...shuffle(notes)].splice(0, randomValue);
+  return [...shuffle(notes)].splice(0, number);
 }
 
 function filterNotes() {
