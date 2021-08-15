@@ -3,6 +3,7 @@ const trebleAccidentals = document.querySelector("#treble-accidentals");
 const bass = document.querySelector("#bass");
 const bassAccidentals = document.querySelector("#bass-accidentals");
 const number = document.querySelector("#number");
+const noteLetters = document.querySelector("#note-letters");
 
 const notes = [
   { note: 36, position: 327, letter: "C" },
@@ -58,7 +59,7 @@ const notes = [
 let midiInputs = [];
 let currentNotes = [];
 
-function checkIfBlackKey(note) {
+function blackKey(note) {
   const blackKeys = [
     37, 39, 42, 44, 46, 49, 51, 54, 56, 58, 61, 63, 66, 68, 70, 73, 75, 78, 80,
     82,
@@ -142,15 +143,15 @@ function checkNotes(notes, input) {
 }
 
 function paintNote(note) {
-  if (checkIfBlackKey(note.note)) {
+  if (blackKey(note.note)) {
     const p = document.createElement("p");
     let position = note.position;
     if (Math.random() >= 0.5) {
       p.innerHTML = "#O";
-      p.style.left = "45px";
+      p.style.left = "60px";
     } else {
       p.innerHTML = "bO";
-      p.style.left = "85px";
+      p.style.left = "100px";
       position -= 12;
     }
     p.style.zIndex = 2;
@@ -162,9 +163,18 @@ function paintNote(note) {
     p.innerHTML = "O";
     p.style.zIndex = 2;
     p.style.position = "fixed";
-    p.style.left = "20px";
+    p.style.left = "30px";
     p.style.top = `${note.position}px`;
     document.body.appendChild(p);
+  }
+}
+
+function checkLetters() {
+  const e = document.querySelector(".note-letters");
+  if (noteLetters.checked) {
+    e.style.visibility = "visible";
+  } else {
+    e.style.visibility = "hidden";
   }
 }
 
@@ -207,3 +217,4 @@ trebleAccidentals.addEventListener("change", start);
 bass.addEventListener("change", start);
 bassAccidentals.addEventListener("change", start);
 number.addEventListener("change", start);
+noteLetters.addEventListener("change", checkLetters);
