@@ -3,7 +3,7 @@ const trebleAccidentals = document.querySelector("#treble-accidentals");
 const bass = document.querySelector("#bass");
 const bassAccidentals = document.querySelector("#bass-accidentals");
 const easyNotes = document.querySelector("#easy-notes");
-const noteLetters = document.querySelector("#note-letters");
+const showLetters = document.querySelector("#show-letters");
 const number = document.querySelector("#number");
 
 const notes = [
@@ -181,7 +181,7 @@ function paintNote(note) {
 
 function checkLetters() {
   const e = document.querySelector(".note-letters");
-  if (noteLetters.checked) {
+  if (showLetters.checked) {
     e.style.visibility = "visible";
   } else {
     e.style.visibility = "hidden";
@@ -228,4 +228,4 @@ bass.addEventListener("change", start);
 bassAccidentals.addEventListener("change", start);
 number.addEventListener("change", start);
 easyNotes.addEventListener("change", start);
-noteLetters.addEventListener("change", checkLetters);
+showLetters.addEventListener("change", checkLetters);
