@@ -75,7 +75,7 @@ function blackKey(note) {
 function getNotes(notes, number) {
   return [...shuffle(notes)].splice(0, number);
 }
-0;
+
 function filterNotes() {
   const filteredNotes = [];
   const excludeNotes = [36, 38, 45, 50, 55, 60, 65, 71, 76, 83, 84];
