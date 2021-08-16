@@ -2,8 +2,9 @@ const treble = document.querySelector("#treble");
 const trebleAccidentals = document.querySelector("#treble-accidentals");
 const bass = document.querySelector("#bass");
 const bassAccidentals = document.querySelector("#bass-accidentals");
-const number = document.querySelector("#number");
+const easyNotes = document.querySelector("#easy-notes");
 const noteLetters = document.querySelector("#note-letters");
+const number = document.querySelector("#number");
 
 const notes = [
   { note: 36, position: 327, letter: "C" },
@@ -74,9 +75,10 @@ function blackKey(note) {
 function getNotes(notes, number) {
   return [...shuffle(notes)].splice(0, number);
 }
-
+0;
 function filterNotes() {
   const filteredNotes = [];
+  const excludeNotes = [36, 38, 45, 50, 55, 60, 65, 71, 76, 83, 84];
   const trebleNotes = [
     60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84,
   ];
@@ -109,6 +111,15 @@ function filterNotes() {
     for (const accidentalBassNote of accidentalBassNotes) {
       const result = notes.find((o) => o.note === accidentalBassNote);
       filteredNotes.push(result);
+    }
+  }
+
+  if (!easyNotes.checked) {
+    for (const excludeNote of excludeNotes) {
+      const result = filteredNotes.findIndex((o) => o.note === excludeNote);
+      if (result != -1) {
+        filteredNotes.splice(result, 1);
+      }
     }
   }
 
@@ -216,4 +227,5 @@ trebleAccidentals.addEventListener("change", start);
 bass.addEventListener("change", start);
 bassAccidentals.addEventListener("change", start);
 number.addEventListener("change", start);
+easyNotes.addEventListener("change", start);
 noteLetters.addEventListener("change", checkLetters);
